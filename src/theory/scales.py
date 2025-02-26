@@ -32,6 +32,8 @@ def CyclicScaleFromIntervals(LIST: _typing.List[SemitoneInterval], OCTAVE: Semit
   """
   assert sorted(LIST)
   def scale(interval: NamedInterval)->SemitoneInterval:    
+    octave = interval[0] // len(LIST)
+    return LIST[interval[0] % len(LIST)] + octave * OCTAVE + interval[1]
     if interval[0] < 0:
       octave = abs(interval[0]) // len(LIST)      
       return LIST[interval[0] % len(LIST)] - octave * OCTAVE + interval[1]
