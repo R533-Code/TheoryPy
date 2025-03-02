@@ -34,12 +34,6 @@ def CyclicScaleFromIntervals(LIST: _typing.List[SemitoneInterval], OCTAVE: Semit
   def scale(interval: NamedInterval)->SemitoneInterval:    
     octave = interval[0] // len(LIST)
     return LIST[interval[0] % len(LIST)] + octave * OCTAVE + interval[1]
-    if interval[0] < 0:
-      octave = abs(interval[0]) // len(LIST)      
-      return LIST[interval[0] % len(LIST)] - octave * OCTAVE + interval[1]
-    else:
-      octave = interval[0] // len(LIST)
-      return LIST[interval[0] % len(LIST)] + octave * OCTAVE + interval[1]
   return scale
 
 def CyclicScaleFromIntervalDistances(LIST: _typing.List[SemitoneInterval])->Scale:
