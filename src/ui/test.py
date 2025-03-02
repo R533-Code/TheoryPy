@@ -2,7 +2,6 @@ from ..theory import scales
 from ..theory import tuning
 
 import typing
-import time
 import numpy as np
 import pyaudio
 
@@ -53,27 +52,16 @@ def generate_sines(
   return resulting_wave  
 
 CHORDS = [
-  [tuning.EqualTemperamentTuning(100)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(200)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(300)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(400)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(500)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(600)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(700)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(800)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(900)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(1000)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(1100)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(1200)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(1300)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(1400)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(1500)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(1600)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
-  [tuning.EqualTemperamentTuning(1700)(scales.ChromaticScale((i, 0))) for i in range(0, 12)],
+  # Lydian
+  [tuning.EqualTemperamentTuning(220)(scales.NormalizedModeOf(scales.MajorScale, 3)((i, 0))) for i in range(-7, 1)],
+  # Major x3
+  [tuning.JustIntonationTuning(220)(scales.MajorScale((i, 0))) for i in range(0, 8)],
+  [tuning.MeantoneTemperamentTuning(220)(scales.MajorScale((i, 0))) for i in range(0, 8)],
+  [tuning.PythagoreanTuning(220)(scales.MajorScale((i, 0))) for i in range(0, 8)],
 ]
 
 WAVES = []
-for chord in CHORDS:  
+for chord in CHORDS:
   WAVES.append(generate_sines(chord, duration=1.0, fade_time=0.2))
 
 wave = WAVES[0]
